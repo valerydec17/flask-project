@@ -19,6 +19,7 @@ mysql = MySQL(app)
 Articles = Articles() 
 
 @app.route('/')
+@app.route('/home')
 def index():
 		return render_template('home.html')
 
@@ -45,6 +46,8 @@ class RegisterForm(Form):
 		])
 	confirm = PasswordField('Confirm Password')
 
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegisterForm(request.form)
@@ -53,6 +56,7 @@ def register():
 		email = form.email.data
 		username = form.username.data
 		password = sha256_crypt.encrypt(str(form.password.data))
+
 
 		# Create cursor
 		cur = mysql.connection.cursor()
@@ -66,10 +70,11 @@ def register():
 		cur.close()
 
 		flash('You are now registered and can log in', 'success')
-		redirect(url_for('index'))
+		
 
-		return render_template('register.html')
+		return redirect(url_for('index'))
 	return render_template('register.html', form=form)
+
 
 if __name__ == '__main__':
 	app.secret_key='secret123'
