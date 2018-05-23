@@ -59,11 +59,13 @@ def article(id):
 	cur = mysql.connection.cursor()
 
 	# Get article
-	result = cur.execute("SELECT * FROM articles WHERE id=%s", [id])
+	result = cur.execute("SELECT * FROM articles WHERE id = %s", [id])
 
-	articles = cur.fetchone()
+	article = cur.fetchone()
 
 	return render_template('article.html', article=article)
+
+
 
 # Register Form Class
 class RegisterForm(Form):
@@ -194,7 +196,7 @@ def dashboard():
 # Article Form Class
 class ArticleForm(Form):
 	title = StringField('Title', [validators.Length(min=1, max=200)])
-	body = StringField('Body', [validators.Length(min=30)])
+	body = TextAreaField('Body', [validators.Length(min=30)])
 
 
 # Add Article	
