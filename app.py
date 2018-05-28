@@ -5,6 +5,7 @@ from wtforms import Form, StringField, TextAreaField, PasswordField, validators
 from passlib.hash import sha256_crypt
 from functools import wraps
 
+
 app = Flask(__name__)
 
 # Config MySQL
@@ -289,6 +290,7 @@ def delete_article(id):
 	flash('Article Deleted', 'success')
 
 	return redirect(url_for('dashboard'))
+
 
 
 if __name__ == '__main__':
